@@ -59,7 +59,6 @@ class Task extends Model
     {
         if ($dueDate && !empty(trim($dueDate))) {
             try {
-                // Remove qualquer parte de hora se existir
                 $cleanDate = explode(' ', trim($dueDate))[0];
                 $date = Carbon::parse($cleanDate)->format('Y-m-d');
                 return $query->whereDate('due_date', $date);

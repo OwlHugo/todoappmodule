@@ -2,7 +2,7 @@
 
 namespace App\Modules\User\Http\Controllers;
 
-use App\Bootstrap\Controllers\Controller;
+use App\Bootstrap\Http\Controllers\Controller;
 use App\Modules\User\Http\Requests\UpdateProfileRequest;
 use App\Modules\User\Models\User;
 use App\Modules\User\Resources\UserResource;

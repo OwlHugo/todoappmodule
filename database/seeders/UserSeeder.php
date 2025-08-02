@@ -30,9 +30,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Criar usuários de teste apenas se não existirem
         if (User::count() < 5) {
-            // Criar usuários manualmente em vez de usar factory
             User::create([
                 'name' => 'Usuário Teste 1',
                 'email' => 'teste1@todo.com',

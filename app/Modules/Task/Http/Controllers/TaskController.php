@@ -2,7 +2,7 @@
 
 namespace App\Modules\Task\Http\Controllers;
 
-use App\Bootstrap\Controllers\Controller;
+use App\Bootstrap\Http\Controllers\Controller;
 use App\Modules\Task\Models\Task;
 use App\Modules\Task\Repositories\TaskRepository;
 use App\Modules\Task\Services\TaskService;

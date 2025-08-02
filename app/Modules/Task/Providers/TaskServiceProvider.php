@@ -22,7 +22,6 @@ class TaskServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../Http/Routes/web.php');
         
-        // Carregar rotas API com prefixo
         Route::middleware('api')
             ->prefix('api')
             ->group(__DIR__ . '/../Http/Routes/api.php');

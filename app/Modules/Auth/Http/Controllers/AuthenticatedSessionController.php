@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Http\Controllers;
 
-use App\Bootstrap\Controllers\Controller;
+use App\Bootstrap\Http\Controllers\Controller;
 use App\Modules\Auth\Http\Requests\LoginRequest;
 use App\Bootstrap\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;

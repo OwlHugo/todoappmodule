@@ -15,10 +15,8 @@ export default function Index({ auth, tasks, filters }) {
     const taskList = Array.isArray(tasks) ? tasks : (tasks && Array.isArray(tasks.data) ? tasks.data : []);
 
     const handleFilter = () => {
-        // Processa a data para garantir formato correto
         let dueDate = data.due_date;
         if (dueDate) {
-            // Garante que a data está no formato Y-m-d
             const date = new Date(dueDate);
             if (!isNaN(date.getTime())) {
                 dueDate = date.toISOString().split('T')[0];

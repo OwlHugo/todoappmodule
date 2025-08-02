@@ -15,7 +15,6 @@ class TaskService
 {
     public function createTask(array $data, User $user): Task
     {
-        // Processa a data de vencimento
         $dueDate = null;
         if (isset($data['due_date']) && !empty(trim($data['due_date']))) {
             try {
@@ -40,7 +39,6 @@ class TaskService
 
     public function updateTask(Task $task, array $data): Task
     {
-        // Processa a data de vencimento
         $dueDate = $task->due_date;
         if (isset($data['due_date'])) {
             if (!empty(trim($data['due_date']))) {

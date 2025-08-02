@@ -15,10 +15,8 @@ export default function TaskForm({ task = null, mode = 'create' }) {
         if (task && Object.keys(task).length > 0) {
             const taskData = task.data || task;
             
-            // Processa a data para o formato correto do input
             let dueDate = '';
             if (taskData.due_date) {
-                // Se a data vem com hora, remove a parte da hora
                 dueDate = taskData.due_date.split(' ')[0];
             }
             
