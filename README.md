@@ -34,7 +34,11 @@ npm install
 ```bash
 npm run dev
 ```
+### 8. Teste unitário
+```bash
+docker exec -it todotask-php php artisan test
 
+```
 ## 🌐 Acessando a Aplicação
 
 Após seguir todos os passos acima, a aplicação estará disponível em:

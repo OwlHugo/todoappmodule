@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            \App\Modules\Task\Database\Seeders\TaskSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }
