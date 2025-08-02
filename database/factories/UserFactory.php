@@ -2,15 +2,23 @@
 
 namespace Database\Factories;
 
+use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Modules\User\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
+    /**
+     * O modelo associado a esta factory.
+     *
+     * @var string
+     */
+    protected $model = User::class;
+
     /**
      * The current password being used by the factory.
      */

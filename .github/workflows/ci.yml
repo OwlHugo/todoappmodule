@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: todo_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, pdo_pgsql, zip, gd
+        coverage: none
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Install dependencies
+      run: |
+        composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        npm ci
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Directory permissions
+      run: chmod -R 777 storage bootstrap/cache
+
+    - name: Create database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+
+    - name: Execute tests (Unit and Feature)
+      env:
+        DB_CONNECTION: pgsql
+        DB_HOST: localhost
+        DB_PORT: 5432
+        DB_DATABASE: todo_test
+        DB_USERNAME: postgres
+        DB_PASSWORD: password
+      run: |
+        php artisan migrate --force
+        php artisan test
+
+    - name: Build assets
+      run: npm run build
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        npm ci
+
+    - name: Run PHP CS Fixer
+      run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+    - name: Run ESLint
+      run: npx eslint resources/js --ext .js,.jsx 
